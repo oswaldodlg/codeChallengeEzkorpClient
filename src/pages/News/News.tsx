@@ -1,9 +1,8 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './News.css'
 
 export default function News() {
-  const [country, setCountry] = useState('')
   const [category, setCategory] = useState('sports')
   const [news, setNews] = useState([])
   const [isPending, setIsPending] = useState(false)
@@ -58,7 +57,7 @@ export default function News() {
         {news && !isPending && news.map((doc: any) => {
           return(
             <div className='article-container'>
-            {doc.urlToImage && <img src={doc.urlToImage} className='news-pic'/>}
+            {doc.urlToImage && <img src={doc.urlToImage} className='news-pic' alt='article-pic'/>}
               <div className='article-info'>
               <h3>{doc.title}</h3>
               <p>{doc.description}</p>

@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebase/config";
+import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 
 export const useSignUp = () => {
