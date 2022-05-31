@@ -54,7 +54,7 @@ export default function Foodie() {
   }
   return (
     <div className='main-container'>
-    {randomDish === null ?
+    {!randomDish ?
     <form onSubmit={handleSubmit} className="form-container">
       <h2>Dime qué comer...</h2>
       <label>
@@ -94,7 +94,7 @@ export default function Foodie() {
     : 
       <div className='recipe-container'>
         <h3 className='title'>{randomDish?.recipe.label}</h3>
-        <img src={randomDish?.recipe.image}/>
+        <img src={randomDish?.recipe.image} alt="Recipe Picture"/>
         <label>
         Ingredients
         {randomDish?.recipe.ingredientLines.map((ingredient, index) => {
