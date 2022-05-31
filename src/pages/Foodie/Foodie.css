@@ -1,0 +1,29 @@
+.main-container {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../../../public/assets/img/FoodieBgnd.jpg');
+  height: 90vh;
+  display: flex;
+  color: white;
+}
+
+.form-container {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-width: 360px;
+    padding: 50px;
+    background-color:rgba(0, 0, 0, 0.5);
+  }
+
+.form-container label {
+    display: block;
+    margin: 30px auto;
+}
+.form-container input {
+    padding: 8px 6px;
+    font-size: 1em;
+    color: #777;
+    
+}
