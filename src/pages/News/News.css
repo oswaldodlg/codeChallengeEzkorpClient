@@ -76,12 +76,14 @@ label button {
 
 .article-info {
   text-align: left;
+  width: 50%;
   padding: 15px 
 }
 
 .card-news img {
   padding: 15px;
-  height: 170px;
+  
+  width: 50%;
 }
 
 .card:hover {
