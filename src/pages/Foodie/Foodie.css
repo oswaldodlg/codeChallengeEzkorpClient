@@ -3,9 +3,10 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('../../../public/assets/img/FoodieBgnd.jpg');
-  height: 90vh;
+  min-height: 90vh;
   display: flex;
   color: white;
+  padding: 50px;
 }
 
 .form-container {
@@ -19,11 +20,49 @@
 
 .form-container label {
     display: block;
-    margin: 30px auto;
+    margin: 15px auto;
 }
-.form-container input {
+.form-container select {
+    display: block;
     padding: 8px 6px;
     font-size: 1em;
     color: #777;
+    margin: 5px auto;
     
+}
+
+.recipe-container {
+  margin: auto;
+  background-color:rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  max-width: 80%;
+}
+
+.recipe-container .title {
+  padding: 35px 0px
+}
+
+.recipe-container img {
+  width: 80%;
+  height: 80%;
+}
+
+.recipe-container label {
+  display: block;
+}
+
+.recipe-container label li {
+  text-align: left;
+}
+
+.recipe-container button{
+  background: none;
+  border: 2px solid white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+  margin: 10px 0px;
 }

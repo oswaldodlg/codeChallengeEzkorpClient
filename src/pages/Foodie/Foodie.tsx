@@ -1,38 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Foodie.css'
+
+const APP_ID = 'f73f48fb'
+const APP_KEY = '74a46a439836c49c1ba80ce72f2c482f'
+
+interface RandomDish {
+  recipe: {
+    label: '',
+    url: '',
+    ingredientLines: [],
+    image: '',
+  }
+}
+
 
 export default function Foodie() {
   const [isPending] = useState(false)
   const [error] = useState('')
-  const [location, setLocation] = useState('')
+  const [ingredient, setIngredient] = useState('')
+  const [cuisine, setCuisine] = useState('')
+  const [mealTime, setMealTime] = useState('')
+  const [apiData, setApiData] = useState([])
+  const [randomDish, setRandomDish] = useState<RandomDish | null>(null);
 
+  useEffect(() => {
+    setRandomDish(apiData[Math.floor(Math.random()*apiData.length)])
+    console.log(randomDish)
+  }, [apiData])
+  
+  
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-    // axios({
-    //   method: 'get',
-    //   url: 'https://api.uber.com/v1.2/products?latitude=37.7752315&longitude=-122.418075',
-    //   headers: {
-    //   'Access-Control-Allow-Origin': '*',
-    //   Authorization: 'Bearer IA.VUNmGAAAAAAAEgASAAAABwAIAAwAAAAAAAAAEgAAAAAAAAGgAAAAFAAAAAAADgAQAAQAAAAIAAwAAAAOAAAAdAAAABwAAAAEAAAAEAAAAJqJ1MVe-BHlPl9cQooJybdOAAAA5Obelpua_z0C1kmW-jDrNCnrd-wxETxFps4o2dvdIRNHD1AwG-Oy8n2w-2jt77nex-DVSeBqOfzis5MZkwxc88hUToetwAS5sR4bMk5aAAAMAAAAnAsAL0JxNcqLeXy3JAAAAGIwZDg1ODAzLTM4YTAtNDJiMy04MDZlLTdhNGNmOGUxOTZlZQ'}
-    // })
-    // .then(res => {
-    //   console.log(res)
-    // })
-    const axios = require("axios");
+    e.preventDefault()    
+     const options = {
+      method: 'get',
+      url: `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`,
 
-    const options = {
-      method: 'GET',
-      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
-      params: {tags: 'vegetarian,dessert', number: '1'},
+      params: {q: ingredient, cuisineType: cuisine, mealType: mealTime, random: true },
+      
       headers: {
-        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-        'X-RapidAPI-Key': '6164b65938msh2e8276decfb5f62p1552a2jsn7c09e3483db9'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
       }
     };
 
     axios.request(options).then(function (response: any) {
-      console.log(response.data);
+      setApiData(response.data.hits);
     }).catch(function (error : any) {
       console.error(error);
     });
@@ -40,21 +54,59 @@ export default function Foodie() {
   }
   return (
     <div className='main-container'>
+    {randomDish === null ?
     <form onSubmit={handleSubmit} className="form-container">
       <h2>Dime qué comer...</h2>
       <label>
-        <input 
-        type='text'
-        onChange={(e) => setLocation(e.target.value)}
-        value={location}
-        placeholder='Ubicacion'
-        />
+          Tipo de Proteina
+          <select value={ingredient} onChange={(e) => setIngredient(e.target.value) }>
+            <option value="chicken">Pollo</option>
+            <option value="beef">Res</option>
+            <option value="pig">Cerdo</option>
+            <option value="fish">Pescado</option>
+            <option value="eggs">Huevo</option>
+          </select>
+      </label>
+      <label>
+          Tipo de Cocina
+          <select value={cuisine} onChange={(e) => setCuisine(e.target.value) }>
+            <option value="Mexican">Mexicana</option>
+            <option value="Mediterranean">Mediterranea</option>
+            <option value="American">Americana</option>
+            <option value="French">Francesa</option>
+            <option value="Italian">Italiana</option>
+            <option value="Asian">Asiatica</option>
+          </select>
+      </label>
+      <label>
+          Hora de la Comida
+          <select value={mealTime} onChange={(e) => setMealTime(e.target.value) }>
+            <option value="Breakfast">Desayuno</option>
+            <option value="Lunch">Comida</option>
+            <option value="Dinner">Cena</option>
+          </select>
       </label>
       {isPending ? <button className='btn' disabled>Cargando...</button>
       :  <button className='btn'>Buscar</button>
       }
       { error && <p>{error}</p>}
     </form>
+    : 
+      <div className='recipe-container'>
+        <h3 className='title'>{randomDish?.recipe.label}</h3>
+        <img src={randomDish?.recipe.image}/>
+        <label>
+        Ingredients
+        {randomDish?.recipe.ingredientLines.map((ingredient, index) => {
+          return(
+            <li key={index}>{ingredient}</li>
+          )
+        })}
+        </label>
+        <button className='btn' onClick={() => window.open(randomDish?.recipe.url)}>Ir a receta</button>
+        <button className='btn' onClick={() => setRandomDish(null)}>Regresar</button>
+      </div>
+    }
     </div>
   )
 }
