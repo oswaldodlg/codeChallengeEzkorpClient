@@ -3,8 +3,8 @@ import axios from 'axios'
 import './Foodie.css'
 
 export default function Foodie() {
-  const [isPending, setIsPending] = useState(false)
-  const [error, setError] = useState('')
+  const [isPending] = useState(false)
+  const [error] = useState('')
   const [location, setLocation] = useState('')
 
   const handleSubmit = (e: any) => {
