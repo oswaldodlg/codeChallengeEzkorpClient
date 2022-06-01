@@ -27,3 +27,8 @@ ul {
   background: #1f9751;
   color: #fff;
 }
+
+.btn:hover {
+  background: gray;
+  color: #fff;
+}

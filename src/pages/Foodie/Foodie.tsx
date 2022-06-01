@@ -18,15 +18,14 @@ interface RandomDish {
 export default function Foodie() {
   const [isPending] = useState(false)
   const [error] = useState('')
-  const [ingredient, setIngredient] = useState('')
-  const [cuisine, setCuisine] = useState('')
-  const [mealTime, setMealTime] = useState('')
+  const [ingredient, setIngredient] = useState('chicken')
+  const [cuisine, setCuisine] = useState('Mexican')
+  const [mealTime, setMealTime] = useState('Breakfast')
   const [apiData, setApiData] = useState([])
   const [randomDish, setRandomDish] = useState<RandomDish | null>(null);
 
   useEffect(() => {
     setRandomDish(apiData[Math.floor(Math.random()*apiData.length)])
-    console.log(randomDish)
   }, [apiData])
   
   
@@ -62,7 +61,7 @@ export default function Foodie() {
           <select value={ingredient} onChange={(e) => setIngredient(e.target.value) }>
             <option value="chicken">Pollo</option>
             <option value="beef">Res</option>
-            <option value="pig">Cerdo</option>
+            <option value="pork">Cerdo</option>
             <option value="fish">Pescado</option>
             <option value="eggs">Huevo</option>
           </select>
@@ -94,7 +93,7 @@ export default function Foodie() {
     : 
       <div className='recipe-container'>
         <h3 className='title'>{randomDish?.recipe.label}</h3>
-        <img src={randomDish?.recipe.image} alt="Recipe Picture"/>
+        <img src={randomDish?.recipe.image} alt=""/>
         <label>
         Ingredients
         {randomDish?.recipe.ingredientLines.map((ingredient, index) => {
