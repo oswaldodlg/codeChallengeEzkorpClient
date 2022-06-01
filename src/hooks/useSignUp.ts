@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
+import { doc, setDoc} from 'firebase/firestore';
+import { db } from "../firebase/config";
 
 export const useSignUp = () => {
 
@@ -27,6 +29,10 @@ export const useSignUp = () => {
 
             //add display name to user
             await updateProfile(res.user, {displayName: displayName })
+
+            //Set Firebase Document
+            const userRef= await doc(db, 'users', res.user.uid);
+            await setDoc(userRef, {toDoActivities: {}})
 
             // dipatch login action
             dispatch({

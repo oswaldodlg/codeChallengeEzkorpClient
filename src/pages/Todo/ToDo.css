@@ -97,6 +97,34 @@
     cursor: pointer;
   }
 
+  .sticky-notes-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .single-sticky-note {
+    width: 30%;
+    padding: 20px;
+    background-color: greenyellow;
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    width: fit-content !important;
+    color: red !important;
+    border-color: red !important;
+  }
+
+  .delete-btn:hover {
+    width: fit-content !important;
+    color: white !important;
+    border-color: red !important;
+    background-color: red !important
+  }
+
   @media (max-width: 600px) {
     .to-do-container {
         display: block;
