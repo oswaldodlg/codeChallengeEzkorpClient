@@ -36,19 +36,15 @@ export default function News() {
             <span>Pais de interes:</span>
             <input type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
             </label> */}
-            <label>
             <span>Categorias:</span>
+            <label>
             <button className={category === 'sports' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('sports')}>Deportes</button>
             <button className={category === 'technology' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('technology')}>Tecnologia</button>
             <button className={category === 'entertainment' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('entertainment')}>Espectáculos</button>
             <button className={category === 'politics' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('politics')}>Politica</button>
             <button className={category === 'science' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('science')}>Ciencia</button>
             <button className={category === 'business' ? 'btn-selected' : 'btn-category'} onClick={() => setCategory('business')}>Negocios</button>
-
-            {/* <input type='text' onChange={(e) => setCategory(e.target.value)} value={category}/> */}
             </label>
-          
-          {/* <button className='btn' style={{display: 'block', justifyContent: 'center', margin: '20px auto'}}>Buscar</button> */}
         </form>
       </div>
       <div className='card-news'>

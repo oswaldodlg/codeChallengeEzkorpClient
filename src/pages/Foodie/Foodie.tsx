@@ -16,7 +16,7 @@ interface RandomDish {
 
 
 export default function Foodie() {
-  const [isPending] = useState(false)
+  const [isPending, setIsPending] = useState(false)
   const [error] = useState('')
   const [ingredient, setIngredient] = useState('chicken')
   const [cuisine, setCuisine] = useState('Mexican')
@@ -27,9 +27,14 @@ export default function Foodie() {
   useEffect(() => {
     setRandomDish(apiData[Math.floor(Math.random()*apiData.length)])
   }, [apiData])
+
+  useEffect(() => {
+    console.log(ingredient, cuisine, mealTime)
+  }, [])
   
   
   const handleSubmit = (e: any) => {
+    setIsPending(true)
     e.preventDefault()    
      const options = {
       method: 'get',
@@ -44,10 +49,14 @@ export default function Foodie() {
       }
     };
 
+    
+
     axios.request(options).then(function (response: any) {
       setApiData(response.data.hits);
+      setIsPending(false);
     }).catch(function (error : any) {
       console.error(error);
+      setIsPending(false)
     });
     
   }
