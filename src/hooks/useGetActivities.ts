@@ -9,8 +9,9 @@ interface Data {
 }
 
 export const useGetActivities = () => {
-    const [details, setDetails] = useState(null)
+    const [isCancelled, setIsCancelled] = useState(false)
     const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState(null)
     const [data, setData] = useState<Data | any>(null);
 
     const getActivities = (id: string) => {
@@ -23,13 +24,27 @@ export const useGetActivities = () => {
                 console.log("Current data: ", doc.data()); 
                 setData(doc.data()) 
             })
-
+            
+            if (!isCancelled){
+                setIsPending(false)
+                setError(null)
+            }
         
 
-        } catch (err) {
-
+        } catch (err: any) {
+            if (!isCancelled){
+                console.log(err.message)
+                setError(err.message)
+                setIsPending(false)
+                }
         }
-    }   
+    }
+
+    useEffect(() => {    
+        return () => {
+          setIsCancelled(true)
+        }
+      }, [])   
     
     return ({getActivities, data, isPending})
 }

@@ -31,9 +31,11 @@ export const useLogout = () => {
 
            
         } catch(err: any){
+            if (!isCancelled){
             console.log(err.message)
             setError(err.message)
             setIsPending(false)
+            }
         }
     }
 

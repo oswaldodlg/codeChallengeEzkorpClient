@@ -14,17 +14,17 @@ export default function useLogin() {
         setError(null)
         setIsPending(true)
 
-        //sign the user out
+        //sign the user in
         try{
             const res = await signInWithEmailAndPassword(auth, email, password)
 
-            //dispatch logout action
+            //dispatch login action
             dispatch( {
                 type: 'LOGIN',
                 payload: res.user
             })
 
-            //update state
+           
 
             if (!isCancelled){
                 setIsPending(false)
@@ -32,9 +32,11 @@ export default function useLogin() {
             }
 
         } catch(err: any){
+            if (!isCancelled){
             console.log(err.message)
             setError(err.message)
             setIsPending(false)
+            }
         }
     }
 

@@ -9,9 +9,9 @@ interface Data {
 }
 
 export const useAddActivities = () => {
-    const [details, setDetails] = useState(null)
     const [isPending, setIsPending] = useState(false)
-    const [error, setError] = useState('')
+    const [isCancelled, setIsCancelled] = useState(false)
+    const [error, setError] = useState(null)
 
     const addActivity = async(id: string, date: any, activity: string) => {
         setIsPending(true)
@@ -22,13 +22,25 @@ export const useAddActivities = () => {
             await updateDoc(activityRef, {
                 ["toDoActivities"+`.${date}`]: arrayUnion(activity)
               });
-            setIsPending(false)
+            if (!isCancelled){
+                setIsPending(false)
+                setError(null)
+            }
+            
         } catch (err : any) {
+            if (!isCancelled){
             console.log(err)
             setError(err.message)
             setIsPending(false)
+            }
         }
-    }   
+    } 
+
+    useEffect(() => {    
+        return () => {
+          setIsCancelled(true)
+        }
+      }, [])
     
     return ({addActivity, isPending, error})
 }

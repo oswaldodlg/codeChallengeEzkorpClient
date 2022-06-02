@@ -19,10 +19,6 @@ function App() {
           <>
           <Navbar />
           <Routes>
-            {/* <Route path="/">
-              {!user && <Navigate to='/Login'/>}
-              {user && <ToDo/>}
-            </Route> */}
             <Route path="/" element={user ? <ToDo /> : <Login />} />
             <Route path="/Login" element={user ? <ToDo /> : <Login />} />
             <Route path="/Register" element={!user ? <Register /> : <ToDo/>} />
